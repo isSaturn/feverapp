@@ -82,8 +82,9 @@ class _ChatScreenState extends State<ChatScreen> {
                   dense: true,
                   onTap: () {
                     Navigator.pop(context);
-                    homeConversationModel.isGroupChat;
-                    _onPrivateChatSettingsClick();
+                    homeConversationModel.isGroupChat
+                        ? _onGroupChatSettingsClick()
+                        : _onPrivateChatSettingsClick();
                   },
                   contentPadding: const EdgeInsets.all(0),
                   leading: Icon(
@@ -809,6 +810,123 @@ class _ChatScreenState extends State<ChatScreen> {
     super.dispose();
     _messageController.dispose();
     _groupNameController.dispose();
+  }
+
+  Widget _showRenameGroupDialog() {
+    return Dialog(
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(40)),
+        elevation: 16,
+        child: Container(
+          height: 200,
+          width: 350,
+          child: Padding(
+              padding: const EdgeInsets.only(
+                  top: 40.0, left: 16, right: 16, bottom: 16),
+              child: Column(
+                mainAxisSize: MainAxisSize.max,
+                children: <Widget>[
+                  TextField(
+                    textInputAction: TextInputAction.done,
+                    keyboardType: TextInputType.text,
+                    textCapitalization: TextCapitalization.sentences,
+                    controller: _groupNameController,
+                    decoration: InputDecoration(
+                      focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(25.0),
+                          borderSide: BorderSide(
+                              color: Color(COLOR_ACCENT), width: 2.0)),
+                      border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(25.0)),
+                      labelText: 'Group name',
+                    ),
+                  ),
+                  Spacer(),
+                  Wrap(
+                    spacing: 30,
+                    children: <Widget>[
+                      FlatButton(
+                          onPressed: () {
+                            Navigator.pop(context);
+                          },
+                          child: Text(
+                            'Cancel',
+                            style: TextStyle(
+                              fontSize: 18,
+                            ),
+                          )),
+                      FlatButton(
+                          onPressed: () async {
+                            if (_groupNameController.text.isNotEmpty) {
+                              if (homeConversationModel
+                                      .conversationModel.name !=
+                                  _groupNameController.text) {
+                                showProgress(context,
+                                    'Renaming group, Please wait...', false);
+                                homeConversationModel.conversationModel.name =
+                                    _groupNameController.text.trim();
+                                await _fireStoreUtils.updateChannel(
+                                    homeConversationModel.conversationModel);
+                                hideProgress();
+                              }
+                              Navigator.pop(context);
+                              setState(() {});
+                            }
+                          },
+                          child: Text('Rename',
+                              style: TextStyle(
+                                  fontSize: 18, color: Color(COLOR_ACCENT)))),
+                    ],
+                  )
+                ],
+              )),
+        ));
+  }
+
+  _onGroupChatSettingsClick() {
+    final action = CupertinoActionSheet(
+      message: Text(
+        "Group Chat Settings",
+        style: TextStyle(fontSize: 15.0),
+      ),
+      actions: <Widget>[
+        CupertinoActionSheetAction(
+          isDestructiveAction: true,
+          child: Text("Leave Group"),
+          isDefaultAction: false,
+          onPressed: () async {
+            Navigator.pop(context);
+            showProgress(context, 'Leaving group chat', false);
+            bool isSuccessful = await _fireStoreUtils
+                .leaveGroup(homeConversationModel.conversationModel);
+            hideProgress();
+            if (isSuccessful) {
+              Navigator.pop(context);
+            }
+          },
+        ),
+        CupertinoActionSheetAction(
+          child: Text("Rename Group"),
+          isDefaultAction: true,
+          onPressed: () async {
+            Navigator.pop(context);
+            showDialog(
+                context: context,
+                builder: (context) {
+                  return _showRenameGroupDialog();
+                });
+          },
+        ),
+      ],
+      cancelButton: CupertinoActionSheetAction(
+        child: Text(
+          "Cancel",
+        ),
+        onPressed: () {
+          Navigator.pop(context);
+        },
+      ),
+    );
+    showCupertinoModalPopup(context: context, builder: (context) => action);
   }
 
   _onPrivateChatSettingsClick() {

@@ -521,6 +521,17 @@ class FireStoreUtils {
         .then((onValue) {
       isSuccessful = true;
     });
+    BlockUserModel blockUserModel2 = BlockUserModel(
+        type: type,
+        source: blockedUser.userID,
+        dest: MyAppState.currentUser.userID,
+        createdAt: Timestamp.now());
+    await firestore
+        .collection(UNMATCH)
+        .add(blockUserModel2.toJson())
+        .then((onValue) {
+      isSuccessful = true;
+    });
     return isSuccessful;
   }
 
@@ -530,17 +541,36 @@ class FireStoreUtils {
         .collection(UNMATCH)
         .where('source', isEqualTo: MyAppState.currentUser.userID)
         .snapshots()
-        .listen((onData) {
-      List<BlockUserModel> list = [];
-      for (DocumentSnapshot block in onData.docs) {
-        list.add(BlockUserModel.fromJson(block.data()));
-      }
-      blockedList = list;
+        .listen(
+      (onData) {
+        List<BlockUserModel> list = [];
+        for (DocumentSnapshot block in onData.docs) {
+          list.add(BlockUserModel.fromJson(block.data()));
+        }
+        blockedList = list;
 
-      if (homeConversations.isNotEmpty || matches.isNotEmpty) {
-        refreshStreamController.sink.add(true);
-      }
-    });
+        if (homeConversations.isNotEmpty || matches.isNotEmpty) {
+          refreshStreamController.sink.add(true);
+        }
+      },
+    );
+    firestore
+        .collection(UNMATCH)
+        .where('source', isEqualTo: MyAppState.currentUser.userID)
+        .snapshots()
+        .listen(
+      (onData) {
+        List<BlockUserModel> list = [];
+        for (DocumentSnapshot block in onData.docs) {
+          list.add(BlockUserModel.fromJson(block.data()));
+        }
+        blockedList = list;
+
+        if (homeConversations.isNotEmpty || matches.isNotEmpty) {
+          refreshStreamController.sink.add(true);
+        }
+      },
+    );
     yield* refreshStreamController.stream;
   }
 

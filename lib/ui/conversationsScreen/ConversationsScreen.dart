@@ -67,7 +67,7 @@ class _ConversationsState extends State<ConversationsScreen> {
                 } else if (!snap.hasData || snap.data.isEmpty) {
                   return Center(
                     child: Text(
-                      'Không tìm thấy tương hợp',
+                      'No Matches found.',
                       style: TextStyle(fontSize: 18),
                     ),
                   );
@@ -156,7 +156,7 @@ class _ConversationsState extends State<ConversationsScreen> {
               } else if (!snapshot.hasData || snapshot.data.isEmpty) {
                 return Center(
                   child: Text(
-                    'Không tìm thấy cuộc trò chuyện nào.',
+                    'No Conversations found.',
                     style: TextStyle(fontSize: 18),
                   ),
                 );
@@ -334,7 +334,7 @@ class _ConversationsState extends State<ConversationsScreen> {
       ),
       actions: <Widget>[
         CupertinoActionSheetAction(
-          child: Text("Xem hồ sơ"),
+          child: Text("View Profile"),
           isDefaultAction: true,
           onPressed: () async {
             Navigator.pop(context);

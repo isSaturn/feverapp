@@ -15,17 +15,18 @@ class SwipeScreen extends StatefulWidget {
   const SwipeScreen({Key key, this.user}) : super(key: key);
 
   @override
+  // ignore: library_private_types_in_public_api, no_logic_in_create_state
   _SwipeScreenState createState() => _SwipeScreenState(user);
 }
 
 class _SwipeScreenState extends State<SwipeScreen> {
   final User user;
-  FireStoreUtils _fireStoreUtils = FireStoreUtils();
+  final FireStoreUtils _fireStoreUtils = FireStoreUtils();
   Stream<List<User>> tinderUsers;
   List<User> swipedUsers = [];
   List<User> users = [];
   CardController controller;
-  TextEditingController reportTextController = new TextEditingController();
+  TextEditingController reportTextController = TextEditingController();
 
   _SwipeScreenState(this.user);
 
@@ -52,7 +53,7 @@ class _SwipeScreenState extends State<SwipeScreen> {
         switch (snapshot.connectionState) {
           case ConnectionState.none:
           case ConnectionState.waiting:
-            return Center(
+            return const Center(
               child: CircularProgressIndicator(
                 valueColor: AlwaysStoppedAnimation<Color>(Color(COLOR_ACCENT)),
               ),
