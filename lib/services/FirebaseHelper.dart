@@ -391,7 +391,6 @@ class FireStoreUtils {
     await Future.forEach(members, (User element) async {
       if (element.settings.pushNewMessages) {
         await sendNotification(
-            element.fcmToken,
             isGroup
                 ? conversationModel.name
                 : MyAppState.currentUser.fullName(),
@@ -601,7 +600,7 @@ class FireStoreUtils {
             double distance =
                 getDistance(user.location, MyAppState.currentUser.location);
             if (await _isValidUserForTinderSwipe(user, distance)) {
-              user.milesAway = '$distance Miles Aways';
+              user.milesAway = '$distance Km';
               tinderUsers.insert(0, user);
               tinderCardsStreamController.add(tinderUsers);
             }
@@ -674,7 +673,6 @@ class FireStoreUtils {
         type: 'dislike',
         user1: MyAppState.currentUser.userID,
         user2: dislikedUser.userID,
-        created_at: Timestamp.now(),
         createdAt: Timestamp.now(),
         hasBeenSeen: false);
     await documentReference.set(leftSwipe.toJson());
@@ -697,14 +695,12 @@ class FireStoreUtils {
           id: document.id,
           type: 'like',
           hasBeenSeen: true,
-          created_at: Timestamp.now(),
           createdAt: Timestamp.now(),
           user1: MyAppState.currentUser.userID,
           user2: user.userID);
       await document.set(swipe.toJson());
       if (user.settings.pushNewMatchesEnabled) {
         await sendNotification(
-            user.fcmToken,
             'New match',
             'You have got a new '
                 'match: ${MyAppState.currentUser.fullName()}.');
@@ -728,7 +724,6 @@ class FireStoreUtils {
         user2: user.userID,
         hasBeenSeen: false,
         createdAt: Timestamp.now(),
-        created_at: Timestamp.now(),
         type: 'like');
     await documentReference.set(swipe.toJson()).then((onValue) {
       isSuccessful = true;
@@ -872,7 +867,7 @@ class FireStoreUtils {
           .sendPasswordResetEmail(email: emailAddress);
 }
 
-sendNotification(String token, String title, String body) async {
+sendNotification(String title, String body) async {
   await http.post(
     Uri.parse('https://fcm.googleapis.com/fcm/send'),
     headers: <String, String>{
@@ -888,7 +883,6 @@ sendNotification(String token, String title, String body) async {
           'id': '1',
           'status': 'done'
         },
-        'to': token
       },
     ),
   );

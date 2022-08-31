@@ -34,7 +34,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                   padding:
                       const EdgeInsets.only(top: 32.0, right: 16.0, left: 16.0),
                   child: Text(
-                    'Reset Password',
+                    'Đặt lại mật khẩu',
                     style: TextStyle(
                         color: Color(COLOR_PRIMARY),
                         fontSize: 25.0,
@@ -99,7 +99,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                       ),
                     ),
                     child: Text(
-                      'Send Link',
+                      'Gửi link',
                       style: TextStyle(
                         fontSize: 20,
                         fontWeight: FontWeight.bold,
@@ -121,13 +121,13 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
   resetPassword() async {
     if (_key.currentState?.validate() ?? false) {
       _key.currentState.save();
-      await showProgress(context, 'Sending Email...', false);
+      await showProgress(context, 'Gửi email...', false);
       await FireStoreUtils.resetPassword(_emailAddress);
       await hideProgress();
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text(
-            'Please check your email.',
+            'Vui lòng kiểm tra email của bạn.',
           ),
         ),
       );

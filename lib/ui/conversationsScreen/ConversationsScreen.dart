@@ -67,7 +67,7 @@ class _ConversationsState extends State<ConversationsScreen> {
                 } else if (!snap.hasData || snap.data.isEmpty) {
                   return Center(
                     child: Text(
-                      'No Matches found.',
+                      'Chưa tìm thấy người tương hợp',
                       style: TextStyle(fontSize: 18),
                     ),
                   );
@@ -156,7 +156,7 @@ class _ConversationsState extends State<ConversationsScreen> {
               } else if (!snapshot.hasData || snapshot.data.isEmpty) {
                 return Center(
                   child: Text(
-                    'No Conversations found.',
+                    'Không tìm thấy cuộc trò chuyện nào.',
                     style: TextStyle(fontSize: 18),
                   ),
                 );

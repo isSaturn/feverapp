@@ -144,10 +144,10 @@ class _ReAuthUserScreenState extends State<ReAuthUserScreen> {
 
   passwordButtonPressed() async {
     if (_passwordController.text.isEmpty) {
-      showAlertDialog(context, 'Empty Password'.tr(),
-          'Password is required to update email'.tr());
+      showAlertDialog(context, 'Mật khẩu trống'.tr(),
+          'Mật khẩu được yêu cầu để cập nhật email'.tr());
     } else {
-      await showProgress(context, 'Verifying...'.tr(), false);
+      await showProgress(context, 'Đang xác minh...'.tr(), false);
       try {
         auth.UserCredential result = await FireStoreUtils.reAuthUser(
             widget.provider,
@@ -155,8 +155,8 @@ class _ReAuthUserScreenState extends State<ReAuthUserScreen> {
             password: _passwordController.text);
         if (result == null) {
           await hideProgress();
-          showAlertDialog(context, 'Couldn\'t verify'.tr(),
-              'Please double check the password and try again.'.tr());
+          showAlertDialog(context, 'Không thể xác minh'.tr(),
+              'Vui lòng kiểm tra lại mật khẩu và thử lại.'.tr());
         } else {
           if (result.user != null) {
             if (widget.email != null)
@@ -169,7 +169,7 @@ class _ReAuthUserScreenState extends State<ReAuthUserScreen> {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
                 content: Text(
-                  'Couldn\'t verify, Please try again.'.tr(),
+                  'Không thể xác minh, Vui lòng thử lại.'.tr(),
                   style: TextStyle(fontSize: 17),
                 ),
               ),

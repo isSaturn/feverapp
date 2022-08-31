@@ -55,7 +55,7 @@ class ContactUsScreen extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.only(
                         right: 16.0, left: 16, top: 16, bottom: 16),
-                    child: Text('Quang Trung, p.10, Gò Vâp, HCM'),
+                    child: Text('Quang Trung, Gò Vâp, HCM'),
                   ),
                   ListTile(
                     title: Text(

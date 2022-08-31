@@ -6,7 +6,6 @@ import 'package:dating/model/MessageData.dart';
 import 'package:dating/model/User.dart';
 import 'package:dating/services/FirebaseHelper.dart';
 import 'package:dating/services/helper.dart';
-import 'package:dating/ui/InfoUserScreen/InfoUserScreen.dart';
 import 'package:dating/ui/MyDetailsScreen/MyDetailsScreen.dart';
 import 'package:dating/ui/accountDetails/AccountDetailsScreen.dart';
 import 'package:dating/ui/auth/AuthScreen.dart';
@@ -223,8 +222,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     ),
                   );
                   if (result != null && result) {
-                    await showProgress(
-                        context, 'Deleting account...'.tr(), false);
+                    await showProgress(context, 'Xóa tài khoản...'.tr(), false);
                     await FireStoreUtils.deleteUser();
                     await hideProgress();
                     MyAppState.currentUser = null;
@@ -282,16 +280,16 @@ class _ProfileScreenState extends State<ProfileScreen> {
   _onCameraClick() {
     final action = CupertinoActionSheet(
       message: Text(
-        "Add profile picture",
+        "Thêm ảnh hồ sơ",
         style: TextStyle(fontSize: 15.0),
       ),
       actions: <Widget>[
         CupertinoActionSheetAction(
-          child: Text("Remove Picture"),
+          child: Text("Xoá hình ảnh"),
           isDestructiveAction: true,
           onPressed: () async {
             Navigator.pop(context);
-            showProgress(context, 'Removing picture...', false);
+            showProgress(context, 'Xóa hình ảnh...', false);
             if (user.profilePictureURL.isNotEmpty)
               await _fireStoreUtils.deleteImage(user.profilePictureURL);
             user.profilePictureURL = '';
@@ -302,7 +300,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
           },
         ),
         CupertinoActionSheetAction(
-          child: Text("Choose from gallery"),
+          child: Text("Chọn từ thư viện"),
           onPressed: () async {
             Navigator.pop(context);
             PickedFile image =
@@ -314,7 +312,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
           },
         ),
         CupertinoActionSheetAction(
-          child: Text("Take a picture"),
+          child: Text("Chụp ảnh"),
           onPressed: () async {
             Navigator.pop(context);
             PickedFile image =
@@ -327,7 +325,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
         ),
       ],
       cancelButton: CupertinoActionSheetAction(
-        child: Text("Cancel"),
+        child: Text("Hủy"),
         onPressed: () {
           Navigator.pop(context);
         },
@@ -337,7 +335,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   }
 
   Future<void> _imagePicked(File image) async {
-    showProgress(context, 'Uploading image...', false);
+    showProgress(context, 'Tải lên hình ảnh...', false);
     user.profilePictureURL =
         await _fireStoreUtils.uploadUserImageToFireStorage(image, user.userID);
     await _fireStoreUtils.updateCurrentUser(user, context);
@@ -431,7 +429,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
             images.add(null);
             setState(() {});
           },
-          child: Text("Remove Picture"),
+          child: Text("Xoá hình ảnh"),
           isDestructiveAction: true,
         ),
         CupertinoActionSheetAction(
@@ -440,7 +438,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
             push(context, FullScreenImageViewer(imageUrl: url));
           },
           isDefaultAction: true,
-          child: Text("View Picture"),
+          child: Text("Xem ảnh"),
         ),
         CupertinoActionSheetAction(
           onPressed: () async {
@@ -450,11 +448,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
             setState(() {});
           },
           isDefaultAction: true,
-          child: Text("Make Profile Picture"),
+          child: Text("Tạo ảnh hồ sơ"),
         )
       ],
       cancelButton: CupertinoActionSheetAction(
-        child: Text("Cancel"),
+        child: Text("Hủy bỏ"),
         onPressed: () {
           Navigator.pop(context);
         },
@@ -466,12 +464,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
   _pickImage() {
     final action = CupertinoActionSheet(
       message: Text(
-        "Add picture",
+        "Thêm ảnh",
         style: TextStyle(fontSize: 15.0),
       ),
       actions: <Widget>[
         CupertinoActionSheetAction(
-          child: Text("Choose from gallery"),
+          child: Text("Chọn từ thư viện"),
           isDefaultAction: false,
           onPressed: () async {
             Navigator.pop(context);
@@ -493,7 +491,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
           },
         ),
         CupertinoActionSheetAction(
-          child: Text("Take a picture"),
+          child: Text("Chụp ảnh"),
           isDestructiveAction: false,
           onPressed: () async {
             Navigator.pop(context);
@@ -516,7 +514,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
         )
       ],
       cancelButton: CupertinoActionSheetAction(
-        child: Text("Cancel"),
+        child: Text("Hủy bỏ"),
         onPressed: () {
           Navigator.pop(context);
         },

@@ -63,7 +63,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       padding: const EdgeInsets.only(
                           right: 16.0, left: 16, top: 16, bottom: 8),
                       child: Text(
-                        'Discovery',
+                        'Khám phá',
                         style: TextStyle(
                             color: isDarkMode(context)
                                 ? Colors.white54
@@ -110,8 +110,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
                               child: Text(
                                   user.settings.distanceRadius.isNotEmpty
                                       ? '$radius '
-                                          'Miles'
-                                      : 'Unlimited',
+                                          'Km'
+                                      : 'Vô hạn',
                                   style: TextStyle(
                                       fontSize: 17,
                                       color: isDarkMode(context)
@@ -166,18 +166,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       ),
                     ),
                     Padding(
-                      padding: const EdgeInsets.only(
-                          right: 16.0, left: 16, top: 16, bottom: 8),
-                      child: Text(
-                        'Thông báo',
-                        style: TextStyle(
-                            color: isDarkMode(context)
-                                ? Colors.white54
-                                : Colors.black54,
-                            fontSize: 18),
-                      ),
-                    ),
-                    Padding(
                       padding: const EdgeInsets.only(top: 32.0, bottom: 16),
                       child: ConstrainedBox(
                         constraints:
@@ -190,7 +178,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                           child: CupertinoButton(
                             padding: const EdgeInsets.all(12.0),
                             onPressed: () async {
-                              showProgress(context, 'Saving changes...', true);
+                              showProgress(context, 'Lưu thay đổi...', true);
                               user.settings.genderPreference = prefGender;
                               user.settings.gender = gender;
                               user.settings.showMe = showMe;
@@ -209,7 +197,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                 Scaffold.of(buildContext).showSnackBar(SnackBar(
                                     duration: Duration(seconds: 3),
                                     content: Text(
-                                      'Settings saved successfuly',
+                                      'Cài đặt đã lưu thành công',
                                       style: TextStyle(fontSize: 17),
                                     )));
                               }
@@ -235,12 +223,12 @@ class _SettingsScreenState extends State<SettingsScreen> {
   _onDistanceRadiusClick() {
     final action = CupertinoActionSheet(
       message: Text(
-        "Distance Radius",
+        "Bán kính khoảng cách",
         style: TextStyle(fontSize: 15.0),
       ),
       actions: <Widget>[
         CupertinoActionSheetAction(
-          child: Text("5 Miles"),
+          child: Text("5Km"),
           isDefaultAction: false,
           onPressed: () {
             Navigator.pop(context);
@@ -249,7 +237,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
           },
         ),
         CupertinoActionSheetAction(
-          child: Text("10 Miles"),
+          child: Text("10Km"),
           isDestructiveAction: false,
           onPressed: () {
             Navigator.pop(context);
@@ -258,7 +246,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
           },
         ),
         CupertinoActionSheetAction(
-          child: Text("15 Miles"),
+          child: Text("15Km"),
           isDestructiveAction: false,
           onPressed: () {
             Navigator.pop(context);
@@ -267,7 +255,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
           },
         ),
         CupertinoActionSheetAction(
-          child: Text("20 Miles"),
+          child: Text("20Km"),
           isDestructiveAction: false,
           onPressed: () {
             Navigator.pop(context);
@@ -276,7 +264,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
           },
         ),
         CupertinoActionSheetAction(
-          child: Text("25 Miles"),
+          child: Text("25Km"),
           isDestructiveAction: false,
           onPressed: () {
             Navigator.pop(context);
@@ -285,7 +273,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
           },
         ),
         CupertinoActionSheetAction(
-          child: Text("50 Miles"),
+          child: Text("50Km"),
           isDestructiveAction: false,
           onPressed: () {
             Navigator.pop(context);
@@ -294,7 +282,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
           },
         ),
         CupertinoActionSheetAction(
-          child: Text("100 Miles"),
+          child: Text("100Km"),
           isDestructiveAction: false,
           onPressed: () {
             Navigator.pop(context);
@@ -303,7 +291,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
           },
         ),
         CupertinoActionSheetAction(
-          child: Text("Unlimited"),
+          child: Text("Vô hạn"),
           isDestructiveAction: false,
           onPressed: () {
             Navigator.pop(context);
@@ -313,7 +301,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
         ),
       ],
       cancelButton: CupertinoActionSheetAction(
-        child: Text("Cancel"),
+        child: Text("Hủy bỏ"),
         onPressed: () {
           Navigator.pop(context);
         },
@@ -358,7 +346,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
         )
       ],
       cancelButton: CupertinoActionSheetAction(
-        child: Text("Cancel"),
+        child: Text("Hủy bỏ"),
         onPressed: () {
           Navigator.pop(context);
         },
@@ -403,7 +391,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
         )
       ],
       cancelButton: CupertinoActionSheetAction(
-        child: Text("Cancel"),
+        child: Text("Hủy bỏ"),
         onPressed: () {
           Navigator.pop(context);
         },

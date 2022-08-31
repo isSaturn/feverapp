@@ -32,14 +32,7 @@ class _SignUpState extends State<SignUpScreen> {
   TextEditingController _lastNameController = new TextEditingController();
   GlobalKey<ScaffoldState> _scaffoldState = GlobalKey();
   GlobalKey<FormState> _key = new GlobalKey();
-  String firstName,
-      lastName,
-      email,
-      mobile,
-      password,
-      confirmPassword,
-      _phoneNumber,
-      _verificationID;
+  String firstName, lastName, email, mobile, password, confirmPassword;
   LocationData signUpLocation;
   AutovalidateMode _validate = AutovalidateMode.disabled;
 
@@ -86,12 +79,12 @@ class _SignUpState extends State<SignUpScreen> {
   _onCameraClick() {
     final action = CupertinoActionSheet(
       message: Text(
-        "Add profile picture",
+        "Thêm ảnh hồ sơ",
         style: TextStyle(fontSize: 15.0),
       ),
       actions: <Widget>[
         CupertinoActionSheetAction(
-          child: Text("Choose from gallery"),
+          child: Text("Chọn từ thư viện"),
           isDefaultAction: false,
           onPressed: () async {
             Navigator.pop(context);
@@ -104,7 +97,7 @@ class _SignUpState extends State<SignUpScreen> {
           },
         ),
         CupertinoActionSheetAction(
-          child: Text("Take a picture"),
+          child: Text("Chụp ảnh"),
           isDestructiveAction: false,
           onPressed: () async {
             Navigator.pop(context);
@@ -118,7 +111,7 @@ class _SignUpState extends State<SignUpScreen> {
         )
       ],
       cancelButton: CupertinoActionSheetAction(
-        child: Text("Cancel"),
+        child: Text("Hủy bỏ"),
         onPressed: () {
           Navigator.pop(context);
         },
@@ -428,14 +421,14 @@ class _SignUpState extends State<SignUpScreen> {
   _sendToServer() async {
     if (_key.currentState.validate()) {
       _key.currentState.save();
-      showProgress(context, 'Creating new account, Please wait...', false);
+      showProgress(context, 'Đang tạo tài khoản mới, Vui lòng đợi ...', false);
       var profilePicUrl = '';
       try {
         auth.UserCredential result = await auth.FirebaseAuth.instance
             .createUserWithEmailAndPassword(
                 email: email.trim(), password: password.trim());
         if (_image != null) {
-          updateProgress('Uploading image, Please wait...');
+          updateProgress('Đang tải hình ảnh lên, Vui lòng đợi ...');
           profilePicUrl = await FireStoreUtils()
               .uploadUserImageToFireStorage(_image, result.user.uid);
         }
@@ -467,7 +460,6 @@ class _SignUpState extends State<SignUpScreen> {
               distanceRadius: '10',
               showMe: true,
             ),
-            fcmToken: await FirebaseMessaging.instance.getToken(),
             profilePictureURL: profilePicUrl);
         await FireStoreUtils.firestore
             .collection(USERS)
@@ -481,29 +473,29 @@ class _SignUpState extends State<SignUpScreen> {
         pushAndRemoveUntil(context, InfoUserScreen(user: user), false);
       } on auth.FirebaseAuthException catch (error) {
         hideProgress();
-        String message = 'Couldn\'t sign up';
+        String message = 'Không thể đăng ký';
         switch (error.code) {
           case 'email-already-in-use':
-            message = 'Email already in use, Please pick another email!';
+            message = 'Email đã được sử dụng, Vui lòng chọn một email khác!';
             break;
           case 'invalid-email':
-            message = 'Enter valid e-mail';
+            message = 'Nhập email hợp lệ';
             break;
           case 'operation-not-allowed':
-            message = 'Email/password accounts are not enabled';
+            message = 'Tài khoản email / mật khẩu không được kích hoạt';
             break;
           case 'weak-password':
-            message = 'Password must be more than 5 characters';
+            message = 'Mật khẩu phải nhiều hơn 5 ký tự';
             break;
           case 'too-many-requests':
-            message = 'Too many requests, Please try again later.';
+            message = 'Quá nhiều yêu cầu. Vui lòng thử lại sau.';
             break;
         }
         showAlertDialog(context, 'Failed', message);
         print(error.toString());
       } catch (e) {
         hideProgress();
-        showAlertDialog(context, 'Failed', 'Couldn\'t sign up');
+        showAlertDialog(context, 'Không thành công ', ' Không thể đăng ký');
       }
     } else {
       setState(() {
@@ -527,8 +519,8 @@ class _SignUpState extends State<SignUpScreen> {
       _sendToServer();
     } else {
       _scaffoldState.currentState.showSnackBar(SnackBar(
-        content: Text('Location is required to match you with people from '
-            'your area.'),
+        content: Text('Vị trí được yêu cầu để khớp bạn với những người từ '
+            'khu vực của bạn.'),
         duration: Duration(seconds: 6),
       ));
     }

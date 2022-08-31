@@ -105,7 +105,7 @@ class _MatchScreenState extends State<MatchScreen> {
                 padding:
                     const EdgeInsets.symmetric(vertical: 60.0, horizontal: 16),
                 child: Text(
-                  'IT\'S A MATCH!',
+                  'TƯƠNG HỢP THÀNH CÔNG',
                   style: TextStyle(
                     letterSpacing: 4,
                     color: Colors.greenAccent,

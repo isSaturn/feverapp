@@ -20,6 +20,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
+import '../userDetailsScreen/UserDetailsScreen.dart';
+
 enum RecordingState { HIDDEN, VISIBLE, Recording }
 
 enum Product { Apple, Samsung, Oppo, Redmi }
@@ -119,13 +121,23 @@ class _ChatScreenState extends State<ChatScreen> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
-                  Text(
-                    homeConversationModel.members.first.fullName(),
-                    style: TextStyle(
-                        color: isDarkMode(context)
-                            ? Colors.grey.shade200
-                            : Colors.white,
-                        fontWeight: FontWeight.bold),
+                  GestureDetector(
+                    onTap: () {
+                      push(
+                          context,
+                          UserDetailsScreen(
+                            user: homeConversationModel.members.first,
+                            isMatch: true,
+                          ));
+                    },
+                    child: Text(
+                      homeConversationModel.members.first.fullName(),
+                      style: TextStyle(
+                          color: isDarkMode(context)
+                              ? Colors.grey.shade200
+                              : Colors.white,
+                          fontWeight: FontWeight.bold),
+                    ),
                   ),
                   homeConversationModel.members.first.lastOnlineTimestamp !=
                           null
@@ -284,7 +296,7 @@ class _ChatScreenState extends State<ChatScreen> {
 
   Widget buildSubTitle(User friend) {
     String text = friend.active
-        ? 'Active now'
+        ? 'Đang hoạt động'
         : 'Last seen on '
             '${setLastSeen(friend.lastOnlineTimestamp?.seconds ?? 0)}';
     return Text(text,
@@ -294,12 +306,12 @@ class _ChatScreenState extends State<ChatScreen> {
   _onCameraClick() {
     final action = CupertinoActionSheet(
       message: Text(
-        "Send Media",
+        "Gửi phương tiện",
         style: TextStyle(fontSize: 15.0),
       ),
       actions: <Widget>[
         CupertinoActionSheetAction(
-          child: Text("Choose image from gallery"),
+          child: Text("Chọn hình ảnh từ thư viện"),
           isDefaultAction: false,
           onPressed: () async {
             Navigator.pop(context);
@@ -313,7 +325,7 @@ class _ChatScreenState extends State<ChatScreen> {
           },
         ),
         CupertinoActionSheetAction(
-          child: Text("Choose video from gallery"),
+          child: Text("Chọn video từ thư viện"),
           isDefaultAction: false,
           onPressed: () async {
             Navigator.pop(context);
@@ -329,7 +341,7 @@ class _ChatScreenState extends State<ChatScreen> {
           },
         ),
         CupertinoActionSheetAction(
-          child: Text("Take a picture"),
+          child: Text("Chụp ảnh"),
           isDestructiveAction: false,
           onPressed: () async {
             Navigator.pop(context);
@@ -343,7 +355,7 @@ class _ChatScreenState extends State<ChatScreen> {
           },
         ),
         CupertinoActionSheetAction(
-          child: Text("Record video"),
+          child: Text("Quay video"),
           isDestructiveAction: false,
           onPressed: () async {
             Navigator.pop(context);
@@ -361,7 +373,7 @@ class _ChatScreenState extends State<ChatScreen> {
       ],
       cancelButton: CupertinoActionSheetAction(
         child: Text(
-          "Cancel",
+          "Hủy",
         ),
         onPressed: () {
           Navigator.pop(context);
@@ -1034,7 +1046,7 @@ class _ChatScreenState extends State<ChatScreen> {
 
   _onReportedClick() async {
     Navigator.pop(context);
-    showProgress(context, 'Reporting user...', false);
+    showProgress(context, 'Báo cáo người dùng...', false);
     bool isSuccessful = await _fireStoreUtils.reportUser(
         homeConversationModel.members.first,
         reportTextController.text,

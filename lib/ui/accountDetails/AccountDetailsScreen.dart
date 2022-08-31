@@ -33,6 +33,7 @@ class _AccountDetailsScreenState extends State<AccountDetailsScreen> {
       relationshipStatus,
       denominationView,
       zodiac,
+      majors,
       seeking,
       willingToRelocate;
 
@@ -42,6 +43,7 @@ class _AccountDetailsScreenState extends State<AccountDetailsScreen> {
     relationshipStatus = user.relationshipStatus;
     denominationView = user.denominationalViews;
     zodiac = user.zodiac;
+    majors = user.majors;
     seeking = user.seeking;
     willingToRelocate = user.willingToRelocate;
     super.initState();
@@ -74,7 +76,7 @@ class _AccountDetailsScreenState extends State<AccountDetailsScreen> {
                             padding: const EdgeInsets.only(
                                 left: 16.0, right: 16, bottom: 8, top: 24),
                             child: Text(
-                              'PUBLIC INFO',
+                              'THÔNG TIN CÔNG KHAI',
                               style:
                                   TextStyle(fontSize: 16, color: Colors.grey),
                             ),
@@ -260,7 +262,10 @@ class _AccountDetailsScreenState extends State<AccountDetailsScreen> {
                                             onTap: _onGenderClick,
                                             child: Container(
                                               width: 180,
-                                              child: Text(relationshipStatus,
+                                              child: Text(
+                                                  relationshipStatus != null
+                                                      ? relationshipStatus
+                                                      : '',
                                                   style: TextStyle(
                                                       fontSize: 17,
                                                       color: isDarkMode(context)
@@ -285,7 +290,10 @@ class _AccountDetailsScreenState extends State<AccountDetailsScreen> {
                                             onTap: _onDenominationViewClick,
                                             child: Container(
                                               width: 180,
-                                              child: Text('$denominationView',
+                                              child: Text(
+                                                  denominationView != null
+                                                      ? denominationView
+                                                      : '',
                                                   style: TextStyle(
                                                       fontSize: 17,
                                                       color: isDarkMode(context)
@@ -310,7 +318,34 @@ class _AccountDetailsScreenState extends State<AccountDetailsScreen> {
                                             onTap: _onchurchInvolvmentClick,
                                             child: Container(
                                               width: 180,
-                                              child: Text('$zodiac',
+                                              child: Text(
+                                                  zodiac != null ? zodiac : '',
+                                                  style: TextStyle(
+                                                      fontSize: 16,
+                                                      color: isDarkMode(context)
+                                                          ? Colors.white
+                                                          : Colors.black,
+                                                      fontWeight:
+                                                          FontWeight.bold)),
+                                            ),
+                                          ),
+                                        ),
+                                        ListTile(
+                                          title: Text(
+                                            'Ngành học',
+                                            style: TextStyle(
+                                              fontSize: 17,
+                                              color: isDarkMode(context)
+                                                  ? Colors.white
+                                                  : Colors.black,
+                                            ),
+                                          ),
+                                          trailing: GestureDetector(
+                                            onTap: _onMajors,
+                                            child: Container(
+                                              width: 180,
+                                              child: Text(
+                                                  majors != null ? majors : '',
                                                   style: TextStyle(
                                                       fontSize: 16,
                                                       color: isDarkMode(context)
@@ -335,7 +370,10 @@ class _AccountDetailsScreenState extends State<AccountDetailsScreen> {
                                             onTap: _onSeekingClick,
                                             child: Container(
                                               width: 180,
-                                              child: Text(seeking,
+                                              child: Text(
+                                                  seeking != null
+                                                      ? seeking
+                                                      : '',
                                                   style: TextStyle(
                                                       fontSize: 17,
                                                       color: isDarkMode(context)
@@ -360,7 +398,10 @@ class _AccountDetailsScreenState extends State<AccountDetailsScreen> {
                                             onTap: _onWillingClick,
                                             child: Container(
                                               width: 180,
-                                              child: Text(willingToRelocate,
+                                              child: Text(
+                                                  willingToRelocate != null
+                                                      ? willingToRelocate
+                                                      : '',
                                                   style: TextStyle(
                                                       fontSize: 17,
                                                       color: isDarkMode(context)
@@ -707,6 +748,609 @@ class _AccountDetailsScreenState extends State<AccountDetailsScreen> {
     showCupertinoModalPopup(context: context, builder: (context) => action);
   }
 
+  _onMajors() {
+    final action = CupertinoActionSheet(
+      message: Text(
+        "Ngành học",
+        style: TextStyle(fontSize: 15.0),
+      ),
+      actions: <Widget>[
+        CupertinoActionSheetAction(
+          child: Text("Khoa học môi trường"),
+          isDefaultAction: false,
+          onPressed: () {
+            Navigator.pop(context);
+            majors = 'Khoa học môi trường';
+            setState(() {});
+          },
+        ),
+        CupertinoActionSheetAction(
+          child: Text("Quản lý Tài nguyên và Môi trường"),
+          isDefaultAction: false,
+          onPressed: () {
+            Navigator.pop(context);
+            majors = 'Quản lý Tài nguyên và Môi trường';
+            setState(() {});
+          },
+        ),
+        CupertinoActionSheetAction(
+          child: Text("Mỹ thuật ứng dụng"),
+          isDefaultAction: false,
+          onPressed: () {
+            Navigator.pop(context);
+            majors = 'Mỹ thuật ứng dụng';
+            setState(() {});
+          },
+        ),
+        CupertinoActionSheetAction(
+          child: Text("Quản trị Dịch vụ Du lịch Lữ Hành"),
+          isDefaultAction: false,
+          onPressed: () {
+            Navigator.pop(context);
+            majors = 'Quản trị Dịch vụ Du lịch Lữ Hành';
+            setState(() {});
+          },
+        ),
+        CupertinoActionSheetAction(
+          child: Text("Thiết kế Công nghiệp"),
+          isDefaultAction: false,
+          onPressed: () {
+            Navigator.pop(context);
+            majors = 'Thiết kế Công nghiệp';
+            setState(() {});
+          },
+        ),
+        CupertinoActionSheetAction(
+          child: Text("Thiết kế Đồ họa"),
+          isDefaultAction: false,
+          onPressed: () {
+            Navigator.pop(context);
+            majors = 'Thiết kế Đồ họa';
+            setState(() {});
+          },
+        ),
+        CupertinoActionSheetAction(
+          child: Text("Thiết kế Nội thất"),
+          isDefaultAction: false,
+          onPressed: () {
+            Navigator.pop(context);
+            majors = 'Thiết kế Nội thất';
+            setState(() {});
+          },
+        ),
+        CupertinoActionSheetAction(
+          child: Text("Thiết kế Thời trang"),
+          isDefaultAction: false,
+          onPressed: () {
+            Navigator.pop(context);
+            majors = 'Thiết kế Thời trang';
+            setState(() {});
+          },
+        ),
+        CupertinoActionSheetAction(
+          child: Text("Ngôn ngữ Anh"),
+          isDefaultAction: false,
+          onPressed: () {
+            Navigator.pop(context);
+            majors = 'Ngôn ngữ Anh';
+            setState(() {});
+          },
+        ),
+        CupertinoActionSheetAction(
+          child: Text("Quản trị Kinh doanh"),
+          isDefaultAction: false,
+          onPressed: () {
+            Navigator.pop(context);
+            majors = 'Quản trị Kinh doanh';
+            setState(() {});
+          },
+        ),
+        CupertinoActionSheetAction(
+          child: Text("Kinh doanh Thương mại"),
+          isDefaultAction: false,
+          onPressed: () {
+            Navigator.pop(context);
+            majors = 'Kinh doanh Thương mại';
+            setState(() {});
+          },
+        ),
+        CupertinoActionSheetAction(
+          child: Text("Kế toán"),
+          isDefaultAction: false,
+          onPressed: () {
+            Navigator.pop(context);
+            majors = 'Kế toán';
+            setState(() {});
+          },
+        ),
+        CupertinoActionSheetAction(
+          child: Text("Tài chính Ngân hàng"),
+          isDefaultAction: false,
+          onPressed: () {
+            Navigator.pop(context);
+            majors = 'Tài chính Ngân hàng';
+            setState(() {});
+          },
+        ),
+        CupertinoActionSheetAction(
+          child: Text("Kỹ thuật phần mềm"),
+          isDefaultAction: false,
+          onPressed: () {
+            Navigator.pop(context);
+            majors = 'Kỹ thuật phần mềm';
+            setState(() {});
+          },
+        ),
+        CupertinoActionSheetAction(
+          child: Text("Công nghệ Thông tin"),
+          isDefaultAction: false,
+          onPressed: () {
+            Navigator.pop(context);
+            majors = 'Công nghệ Thông tin';
+            setState(() {});
+          },
+        ),
+        CupertinoActionSheetAction(
+          child: Text("Quản trị Dịch vụ Du lịch và Lữ hành"),
+          isDefaultAction: false,
+          onPressed: () {
+            Navigator.pop(context);
+            majors = 'Quản trị Dịch vụ Du lịch và Lữ hành';
+            setState(() {});
+          },
+        ),
+        CupertinoActionSheetAction(
+          child: Text("Quản trị Khách sạn"),
+          isDefaultAction: false,
+          onPressed: () {
+            Navigator.pop(context);
+            majors = 'Quản trị Khách sạn';
+            setState(() {});
+          },
+        ),
+        CupertinoActionSheetAction(
+          child: Text("Quan hệ Công chúng"),
+          isDefaultAction: false,
+          onPressed: () {
+            Navigator.pop(context);
+            majors = 'Quan hệ Công chúng';
+            setState(() {});
+          },
+        ),
+        CupertinoActionSheetAction(
+          child: Text("Văn học"),
+          isDefaultAction: false,
+          onPressed: () {
+            Navigator.pop(context);
+            majors = 'Văn học';
+            setState(() {});
+          },
+        ),
+        CupertinoActionSheetAction(
+          child: Text("Kỹ thuật Nhiệt"),
+          isDefaultAction: false,
+          onPressed: () {
+            Navigator.pop(context);
+            majors = 'Kỹ thuật Nhiệt';
+            setState(() {});
+          },
+        ),
+        CupertinoActionSheetAction(
+          child: Text("Công nghệ Kỹ thuật Ô tô"),
+          isDefaultAction: false,
+          onPressed: () {
+            Navigator.pop(context);
+            majors = 'Công nghệ Kỹ thuật Ô tô';
+            setState(() {});
+          },
+        ),
+        CupertinoActionSheetAction(
+          child: Text("Công nghệ Kỹ thuật Môi trường"),
+          isDefaultAction: false,
+          onPressed: () {
+            Navigator.pop(context);
+            majors = 'Công nghệ Kỹ thuật Môi trường';
+            setState(() {});
+          },
+        ),
+        CupertinoActionSheetAction(
+          child: Text("Kỹ thuật xây dựng"),
+          isDefaultAction: false,
+          onPressed: () {
+            Navigator.pop(context);
+            majors = 'Kỹ thuật xây dựng';
+            setState(() {});
+          },
+        ),
+        CupertinoActionSheetAction(
+          child: Text("Kỹ thuật Xây dựng Công trình giao thông"),
+          isDefaultAction: false,
+          onPressed: () {
+            Navigator.pop(context);
+            majors = 'Kỹ thuật Xây dựng Công trình giao thông';
+            setState(() {});
+          },
+        ),
+        CupertinoActionSheetAction(
+          child: Text("Quản lý xây dựng"),
+          isDefaultAction: false,
+          onPressed: () {
+            Navigator.pop(context);
+            majors = 'Quản lý xây dựng';
+            setState(() {});
+          },
+        ),
+        CupertinoActionSheetAction(
+          child: Text("Kiến trúc"),
+          isDefaultAction: false,
+          onPressed: () {
+            Navigator.pop(context);
+            majors = 'Kiến trúc';
+            setState(() {});
+          },
+        ),
+        CupertinoActionSheetAction(
+          child: Text("Luật Kinh tế"),
+          isDefaultAction: false,
+          onPressed: () {
+            Navigator.pop(context);
+            majors = 'Luật Kinh tế';
+            setState(() {});
+          },
+        ),
+        CupertinoActionSheetAction(
+          child: Text("Luật"),
+          isDefaultAction: false,
+          onPressed: () {
+            Navigator.pop(context);
+            majors = 'Luật';
+            setState(() {});
+          },
+        ),
+        CupertinoActionSheetAction(
+          child: Text("Piano"),
+          isDefaultAction: false,
+          onPressed: () {
+            Navigator.pop(context);
+            majors = 'Piano';
+            setState(() {});
+          },
+        ),
+        CupertinoActionSheetAction(
+          child: Text("Thanh nhạc"),
+          isDefaultAction: false,
+          onPressed: () {
+            Navigator.pop(context);
+            majors = 'Thanh nhạc';
+            setState(() {});
+          },
+        ),
+        CupertinoActionSheetAction(
+          child: Text("Đông phương học"),
+          isDefaultAction: false,
+          onPressed: () {
+            Navigator.pop(context);
+            majors = 'Đông phương học';
+            setState(() {});
+          },
+        ),
+        CupertinoActionSheetAction(
+          child: Text("Điều dưỡng"),
+          isDefaultAction: false,
+          onPressed: () {
+            Navigator.pop(context);
+            majors = 'Điều dưỡng';
+            setState(() {});
+          },
+        ),
+        CupertinoActionSheetAction(
+          child: Text("Kỹ thuật Xét nghiệm Y học"),
+          isDefaultAction: false,
+          onPressed: () {
+            Navigator.pop(context);
+            majors = 'Kỹ thuật Xét nghiệm Y học';
+            setState(() {});
+          },
+        ),
+        CupertinoActionSheetAction(
+          child: Text("Dược học"),
+          isDefaultAction: false,
+          onPressed: () {
+            Navigator.pop(context);
+            majors = 'Dược học';
+            setState(() {});
+          },
+        ),
+        CupertinoActionSheetAction(
+          child: Text("Tâm lý học"),
+          isDefaultAction: false,
+          onPressed: () {
+            Navigator.pop(context);
+            majors = 'Tâm lý học';
+            setState(() {});
+          },
+        ),
+        CupertinoActionSheetAction(
+          child: Text("Marketing"),
+          isDefaultAction: false,
+          onPressed: () {
+            Navigator.pop(context);
+            majors = 'Marketing';
+            setState(() {});
+          },
+        ),
+        CupertinoActionSheetAction(
+          child: Text("Công nghệ Sinh học Y dược"),
+          isDefaultAction: false,
+          onPressed: () {
+            Navigator.pop(context);
+            majors = 'Công nghệ Sinh học Y dược';
+            setState(() {});
+          },
+        ),
+        CupertinoActionSheetAction(
+          child: Text("Công nghệ Sinh học"),
+          isDefaultAction: false,
+          onPressed: () {
+            Navigator.pop(context);
+            majors = 'Công nghệ Sinh học';
+            setState(() {});
+          },
+        ),
+        CupertinoActionSheetAction(
+          child: Text("Quản trị Môi trường Doanh nghiệp"),
+          isDefaultAction: false,
+          onPressed: () {
+            Navigator.pop(context);
+            majors = 'Quản trị Môi trường Doanh nghiệp';
+            setState(() {});
+          },
+        ),
+        CupertinoActionSheetAction(
+          child: Text("Nông nghiệp Công nghệ cao"),
+          isDefaultAction: false,
+          onPressed: () {
+            Navigator.pop(context);
+            majors = 'Nông nghiệp Công nghệ cao';
+            setState(() {});
+          },
+        ),
+        CupertinoActionSheetAction(
+          child: Text("Công nghệ Kỹ thuật Điện - Điện tử"),
+          isDefaultAction: false,
+          onPressed: () {
+            Navigator.pop(context);
+            majors = 'Công nghệ Kỹ thuật Điện - Điện tử';
+            setState(() {});
+          },
+        ),
+        CupertinoActionSheetAction(
+          child: Text("Công tác Xã hội"),
+          isDefaultAction: false,
+          onPressed: () {
+            Navigator.pop(context);
+            majors = 'Công tác Xã hội';
+            setState(() {});
+          },
+        ),
+        CupertinoActionSheetAction(
+          child: Text("Khoa học Dữ liệu"),
+          isDefaultAction: false,
+          onPressed: () {
+            Navigator.pop(context);
+            majors = 'Khoa học Dữ liệu';
+            setState(() {});
+          },
+        ),
+        CupertinoActionSheetAction(
+          child: Text("Kỹ thuật Cơ - Điện tử"),
+          isDefaultAction: false,
+          onPressed: () {
+            Navigator.pop(context);
+            majors = 'Kỹ thuật Cơ - Điện tử';
+            setState(() {});
+          },
+        ),
+        CupertinoActionSheetAction(
+          child: Text("Logistics và Quản lý chuỗi cung ứng"),
+          isDefaultAction: false,
+          onPressed: () {
+            Navigator.pop(context);
+            majors = 'Logistics và Quản lý chuỗi cung ứng';
+            setState(() {});
+          },
+        ),
+        CupertinoActionSheetAction(
+          child: Text("Quản trị Nhà hàng và Dịch vụ Ăn uống"),
+          isDefaultAction: false,
+          onPressed: () {
+            Navigator.pop(context);
+            majors = 'Quản trị Nhà hàng và Dịch vụ Ăn uống';
+            setState(() {});
+          },
+        ),
+        CupertinoActionSheetAction(
+          child: Text("Bất động sản"),
+          isDefaultAction: false,
+          onPressed: () {
+            Navigator.pop(context);
+            majors = 'Bất động sản';
+            setState(() {});
+          },
+        ),
+        CupertinoActionSheetAction(
+          child: Text("Ngôn ngữ Trung Quốc"),
+          isDefaultAction: false,
+          onPressed: () {
+            Navigator.pop(context);
+            majors = 'Ngôn ngữ Trung Quốc';
+            setState(() {});
+          },
+        ),
+        CupertinoActionSheetAction(
+          child: Text("Răng - Hàm - Mặt"),
+          isDefaultAction: false,
+          onPressed: () {
+            Navigator.pop(context);
+            majors = 'Răng - Hàm - Mặt';
+            setState(() {});
+          },
+        ),
+        CupertinoActionSheetAction(
+          child: Text("Công nghệ Thực phẩm"),
+          isDefaultAction: false,
+          onPressed: () {
+            Navigator.pop(context);
+            majors = 'Công nghệ Thực phẩm';
+            setState(() {});
+          },
+        ),
+        CupertinoActionSheetAction(
+          child: Text("Đạo diễn Điện ảnh - Truyền hình"),
+          isDefaultAction: false,
+          onPressed: () {
+            Navigator.pop(context);
+            majors = 'Đạo diễn Điện ảnh - Truyền hình';
+            setState(() {});
+          },
+        ),
+        CupertinoActionSheetAction(
+          child: Text("Diễn viên Kịch - Điện ảnh - Truyền hình"),
+          isDefaultAction: false,
+          onPressed: () {
+            Navigator.pop(context);
+            majors = 'Diễn viên Kịch - Điện ảnh - Truyền hình';
+            setState(() {});
+          },
+        ),
+        CupertinoActionSheetAction(
+          child: Text("Thiết kế xanh"),
+          isDefaultAction: false,
+          onPressed: () {
+            Navigator.pop(context);
+            majors = 'Thiết kế xanh';
+            setState(() {});
+          },
+        ),
+        CupertinoActionSheetAction(
+          child: Text("Việt Nam học"),
+          isDefaultAction: false,
+          onPressed: () {
+            Navigator.pop(context);
+            majors = 'Việt Nam học';
+            setState(() {});
+          },
+        ),
+        CupertinoActionSheetAction(
+          child: Text("Thiết kế Mỹ thuật số"),
+          isDefaultAction: false,
+          onPressed: () {
+            Navigator.pop(context);
+            majors = 'Thiết kế Mỹ thuật số';
+            setState(() {});
+          },
+        ),
+        CupertinoActionSheetAction(
+          child: Text("Ngôn ngữ Hàn Quốc"),
+          isDefaultAction: false,
+          onPressed: () {
+            Navigator.pop(context);
+            majors = 'Ngôn ngữ Hàn Quốc';
+            setState(() {});
+          },
+        ),
+        CupertinoActionSheetAction(
+          child: Text("Công nghệ Thẩm mỹ"),
+          isDefaultAction: false,
+          onPressed: () {
+            Navigator.pop(context);
+            majors = 'Công nghệ Thẩm mỹ';
+            setState(() {});
+          },
+        ),
+        CupertinoActionSheetAction(
+          child: Text("Ngành Truyền thông đa phương tiện"),
+          isDefaultAction: false,
+          onPressed: () {
+            Navigator.pop(context);
+            majors = 'Ngành Truyền thông đa phương tiện';
+            setState(() {});
+          },
+        ),
+        CupertinoActionSheetAction(
+          child: Text("Ngành Thương mại điện tử"),
+          isDefaultAction: false,
+          onPressed: () {
+            Navigator.pop(context);
+            majors = 'Ngành Thương mại điện tử';
+            setState(() {});
+          },
+        ),
+        CupertinoActionSheetAction(
+          child: Text("Ngành Kinh doanh Quốc tế"),
+          isDefaultAction: false,
+          onPressed: () {
+            Navigator.pop(context);
+            majors = 'Ngành Kinh doanh Quốc tế';
+            setState(() {});
+          },
+        ),
+        CupertinoActionSheetAction(
+          child: Text("Ngành Kinh tế Quốc tế"),
+          isDefaultAction: false,
+          onPressed: () {
+            Navigator.pop(context);
+            majors = 'Ngành Kinh tế Quốc tế';
+            setState(() {});
+          },
+        ),
+        CupertinoActionSheetAction(
+          child: Text("Bảo hộ Lao động"),
+          isDefaultAction: false,
+          onPressed: () {
+            Navigator.pop(context);
+            majors = 'Bảo hộ Lao động';
+            setState(() {});
+          },
+        ),
+        CupertinoActionSheetAction(
+          child: Text("Quản lý Công nghiệp"),
+          isDefaultAction: false,
+          onPressed: () {
+            Navigator.pop(context);
+            majors = 'Quản lý Công nghiệp';
+            setState(() {});
+          },
+        ),
+        CupertinoActionSheetAction(
+          child: Text("Hệ thống thông tin Quản lý"),
+          isDefaultAction: false,
+          onPressed: () {
+            Navigator.pop(context);
+            majors = 'Hệ thống thông tin Quản lý';
+            setState(() {});
+          },
+        ),
+        CupertinoActionSheetAction(
+          child: Text("Du lịch"),
+          isDefaultAction: false,
+          onPressed: () {
+            Navigator.pop(context);
+            majors = 'Du lịch';
+            setState(() {});
+          },
+        ),
+      ],
+      cancelButton: CupertinoActionSheetAction(
+        child: Text("Cancel"),
+        onPressed: () {
+          Navigator.pop(context);
+        },
+      ),
+    );
+    showCupertinoModalPopup(context: context, builder: (context) => action);
+  }
+
   _onchurchInvolvmentClick() {
     final action = CupertinoActionSheet(
       message: Text(
@@ -952,19 +1596,20 @@ class _AccountDetailsScreenState extends State<AccountDetailsScreen> {
     user.seeking = seeking;
     user.willingToRelocate = willingToRelocate;
     user.zodiac = zodiac;
+    user.majors = majors;
     user.phoneNumber = mobile;
     var updatedUser = await FireStoreUtils().updateCurrentUser(user, context);
     if (updatedUser != null) {
       MyAppState.currentUser = user;
       Scaffold.of(buildContext).showSnackBar(SnackBar(
           content: Text(
-        'Details saved successfuly',
+        'Thông tin chi tiết đã được lưu thành công',
         style: TextStyle(fontSize: 17),
       )));
     } else {
       Scaffold.of(buildContext).showSnackBar(SnackBar(
           content: Text(
-        'Couldn\'t save details, Please try again.',
+        'Không thể lưu chi tiết, Vui lòng thử lại.',
         style: TextStyle(fontSize: 17),
       )));
     }

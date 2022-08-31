@@ -194,7 +194,7 @@ class _LoginScreen extends State<LoginScreen> {
           context, 'Password', 'Yêu cầu nhập đúng mật khẩu tài khoản của bạn');
       return null;
     } else {
-      showProgress(context, 'Logging in, please wait...', false);
+      showProgress(context, 'Đang đăng nhập, vui lòng đợi...', false);
       return loginWithUserNameAndPassword(email.trim(), password.trim());
     }
   }
@@ -214,7 +214,6 @@ class _LoginScreen extends State<LoginScreen> {
       if (documentSnapshot != null && documentSnapshot.exists) {
         user = User.fromJson(documentSnapshot.data());
         user.active = true;
-        user.fcmToken = await FireStoreUtils.firebaseMessaging.getToken();
         await _fireStoreUtils.updateCurrentUser(user, context);
         hideProgress();
         MyAppState.currentUser = user;

@@ -156,6 +156,15 @@ class _UserDetailsScreenState extends State<UserDetailsScreen> {
                 padding: const EdgeInsets.only(left: 16.0, top: 8),
                 child: Row(
                   children: <Widget>[
+                    Icon(Icons.personal_injury),
+                    Text('   ${user.majors}')
+                  ],
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(left: 16.0, top: 8),
+                child: Row(
+                  children: <Widget>[
                     Icon(Icons.favorite),
                     Text('   ${user.seeking}')
                   ],
@@ -179,7 +188,7 @@ class _UserDetailsScreenState extends State<UserDetailsScreen> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: skipNulls([
                     Text(
-                      'Photos',
+                      'Hình ảnh',
                       textAlign: TextAlign.start,
                       style:
                           TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
@@ -220,100 +229,6 @@ class _UserDetailsScreenState extends State<UserDetailsScreen> {
                 ),
               )
             ],
-          ),
-        ),
-        bottomSheet: Visibility(
-          visible: !widget.isMatch,
-          child: Container(
-            height: 100,
-            child: Padding(
-              padding: const EdgeInsets.symmetric(vertical: 16.0),
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisSize: MainAxisSize.max,
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: <Widget>[
-                  Container(
-                    width: 58.0,
-                    height: 58.0,
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      color: Colors.white,
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.grey.withOpacity(0.5),
-                          spreadRadius: 5,
-                          blurRadius: 10,
-                          // changes position of shadow
-                        ),
-                      ],
-                    ),
-                    child: FloatingActionButton(
-                      elevation: 1,
-                      heroTag: 'left',
-                      backgroundColor: Colors.white,
-                      child: Icon(
-                        Icons.close,
-                        color: Colors.red,
-                        size: 30,
-                      ),
-                    ),
-                  ),
-                  Container(
-                    width: 70.0,
-                    height: 70.0,
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      color: Colors.white,
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.grey.withOpacity(0.5),
-                          spreadRadius: 5,
-                          blurRadius: 10,
-                          // changes position of shadow
-                        ),
-                      ],
-                    ),
-                    child: FloatingActionButton(
-                      elevation: 1,
-                      heroTag: 'right',
-                      backgroundColor: Colors.white,
-                      child: Icon(
-                        Icons.favorite,
-                        color: Colors.green,
-                        size: 40,
-                      ),
-                    ),
-                  ),
-                  Container(
-                    width: 58.0,
-                    height: 58.0,
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      color: Colors.white,
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.grey.withOpacity(0.5),
-                          spreadRadius: 5,
-                          blurRadius: 10,
-                          // changes position of shadow
-                        ),
-                      ],
-                    ),
-                    child: FloatingActionButton(
-                      elevation: 1,
-                      heroTag: 'center',
-                      backgroundColor: Colors.white,
-                      child: Icon(
-                        Icons.star,
-                        color: Colors.blue,
-                        size: 30,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
           ),
         ),
       ),

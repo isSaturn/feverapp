@@ -149,6 +149,15 @@ class _MyDetailsScreenState extends State<MyDetailsScreen> {
                 padding: const EdgeInsets.only(left: 16.0, top: 8),
                 child: Row(
                   children: <Widget>[
+                    Icon(Icons.personal_injury),
+                    Text('   ${user.majors}')
+                  ],
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(left: 16.0, top: 8),
+                child: Row(
+                  children: <Widget>[
                     Icon(Icons.favorite),
                     Text('   ${user.seeking}')
                   ],

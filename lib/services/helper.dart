@@ -83,9 +83,9 @@ String validateEmail(String value) {
 
 String validateConfirmPassword(String password, String confirmPassword) {
   if (password != confirmPassword) {
-    return 'Password doesn\'t match';
+    return 'Mật khẩu không khớp';
   } else if (confirmPassword.length == 0) {
-    return 'Confirm password is required';
+    return 'Xác nhận mật khẩu là bắt buộc';
   } else {
     return null;
   }

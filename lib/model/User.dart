@@ -10,6 +10,7 @@ class User with ChangeNotifier {
   String relationshipStatus = '';
   String denominationalViews = '';
   String zodiac = '';
+  String majors = '';
   String seeking = '';
   String willingToRelocate = '';
 
@@ -27,8 +28,6 @@ class User with ChangeNotifier {
   Timestamp lastOnlineTimestamp = Timestamp.now();
   String userID;
   String profilePictureURL = '';
-  String appIdentifier = 'Flutter Dating ${Platform.operatingSystem}';
-  String fcmToken = '';
 
   //tinder related fields
   Location location = Location(latitude: 00.1, longitude: 00.1);
@@ -39,7 +38,7 @@ class User with ChangeNotifier {
   List<dynamic> photos = [];
 
   //internal use only, don't save to db
-  String milesAway = '0 Miles Away';
+  String milesAway = '0 Km';
   bool selected = false;
 
   User({
@@ -52,10 +51,10 @@ class User with ChangeNotifier {
     this.active,
     this.lastOnlineTimestamp,
     this.settings,
-    this.fcmToken,
     this.relationshipStatus,
     this.denominationalViews,
     this.zodiac,
+    this.majors,
     this.seeking,
     this.willingToRelocate,
 
@@ -80,6 +79,7 @@ class User with ChangeNotifier {
         relationshipStatus: parsedJson['relationshipStatus'] ?? '',
         denominationalViews: parsedJson['denominationalViews'] ?? '',
         zodiac: parsedJson['zodiac'] ?? '',
+        majors: parsedJson['majors'] ?? '',
         seeking: parsedJson['seeking'] ?? '',
         willingToRelocate: parsedJson['willingToRelocate'] ?? '',
         active: parsedJson['active'] ?? false,
@@ -98,7 +98,6 @@ class User with ChangeNotifier {
         phoneNumber: parsedJson['phoneNumber'] ?? '',
         userID: parsedJson['id'] ?? parsedJson['userID'] ?? '',
         profilePictureURL: parsedJson['profilePictureURL'] ?? '',
-        fcmToken: parsedJson['fcmToken'] ?? '',
 
         //dating app related fields
         showMe: parsedJson['showMe'] ?? parsedJson['showMeOnTinder'] ?? true,
@@ -120,17 +119,15 @@ class User with ChangeNotifier {
       "relationshipStatus": this.relationshipStatus,
       "denominationalViews": this.denominationalViews,
       "zodiac": this.zodiac,
+      "majors": this.majors,
       "seeking": this.seeking,
       "willingToRelocate": this.willingToRelocate,
-
       "settings": this.settings.toJson(),
       "phoneNumber": this.phoneNumber,
       "id": this.userID,
       'active': this.active,
       'lastOnlineTimestamp': this.lastOnlineTimestamp,
       "profilePictureURL": this.profilePictureURL,
-      'appIdentifier': this.appIdentifier,
-      'fcmToken': this.fcmToken,
 
       //tinder related fields
       'showMe': this.settings.showMe,
